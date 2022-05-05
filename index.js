@@ -49,7 +49,7 @@ let addToSelection = (file) => {
 
 let removeFromSelection = (fileToBeRemoved) => {
   selectedFiles = selectedFiles.filter((file) => {
-    return slugify(fileToBeRemoved.title) !== slugify(file);
+    return slugify(fileToBeRemoved.title) !== slugify(file.title);
   });
 };
 
@@ -73,12 +73,41 @@ const toggleSelection = (event) => {
   if (isSelected) {
     removeFromSelection(foundFile);
   } else addToSelection(foundFile);
+
+  console.log(selectedFiles);
 };
 
 // Display books
-availableFiles.forEach((file) => {
-  
-});
+let booksToDisplay = availableFiles.reduce((cardsString, file) => {
+  let title = slugify(file.title);
+  let categories = file.category.reduce((catString, cat) => {
+    return `${catString}<span class="badge bg-secondary me-2">${cat}</span>`
+  }, "");
+
+  let cardHtml = `${cardsString}<div class="col-md-4 mb-3">
+    <div class="available-files card" id="${title}">
+      <div class="card-header d-flex justify-content-between">
+        <h5 class="card-title">${file.title}</h5>
+        <button class="btn btn-secondary btn-sm file-selector" data-title="${title}">Select</button>
+      </div>
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-muted"><small class="fst-italic">by</small> ${file.author}</h6>
+        <p class="card-text">${file.description}</p>
+        
+        <small date-time="${file.updated}" class="fst-italic">${file.updated}</small>
+      </div>
+
+      <div class="card-footer  mx-0">
+        ${categories}
+      </div>
+    </div>
+  </div>`;
+
+  return cardHtml;
+}, "");
+
+
+document.querySelector('#pdf-list').innerHTML = booksToDisplay;
 
 let availableFileCards = document.querySelectorAll(".file-selector");
 
