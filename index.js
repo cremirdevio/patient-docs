@@ -71,8 +71,16 @@ const toggleSelection = (event) => {
   }
 
   if (isSelected) {
+    element.classList.add('btn-secondary');
+    element.classList.remove('btn-success');
+    element.innerText = 'Select ✅';
     removeFromSelection(foundFile);
-  } else addToSelection(foundFile);
+  } else {
+    element.classList.add('btn-success');
+    element.classList.remove('btn-secondary');
+    element.innerText = 'Selected ❌';
+    addToSelection(foundFile)
+  };
 
   console.log(selectedFiles);
 };
