@@ -95,10 +95,10 @@ let booksToDisplay = availableFiles.reduce((cardsString, file) => {
   let cardHtml = `${cardsString}<div class="col-md-4 mb-3">
     <div class="available-files card" id="${title}">
       <div class="card-header d-flex justify-content-between">
-        <h5 class="card-title">${file.title}</h5>
         <button class="btn btn-secondary btn-sm file-selector" data-title="${title}">Select</button>
       </div>
       <div class="card-body">
+        <h5 class="card-title">${file.title}</h5>
         <h6 class="card-subtitle mb-2 text-muted"><small class="fst-italic">by</small> ${file.author}</h6>
         <p class="card-text">${file.description}</p>
         
