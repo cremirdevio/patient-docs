@@ -82,7 +82,7 @@ const toggleSelection = (event) => {
     addToSelection(foundFile)
   };
 
-  console.log(selectedFiles);
+  updateSelectedList();
 };
 
 // Display books
@@ -113,6 +113,19 @@ let booksToDisplay = availableFiles.reduce((cardsString, file) => {
 
   return cardHtml;
 }, "");
+
+function updateSelectedList() {
+  let booksSelected = selectedFiles.reduce((selectedString, file) => {
+    let selectedSpan = file.category.reduce((catString, cat) => {
+      return `${selectedString}<span class="badge bg-warning mb-2">${file.filename} <span class="badge bg-warning">&times;</span></span><br>`;
+    }, "");
+  
+  
+    return selectedSpan;
+  }, "");
+
+  document.querySelector('#selected-files').innerHTML = booksSelected;
+}
 
 
 document.querySelector('#pdf-list').innerHTML = booksToDisplay;
